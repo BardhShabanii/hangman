@@ -3,18 +3,41 @@ import random, hanging
 
 def choose_lang():
     language = input("Please select your language: Albanian, English or German: ")
+    difficulty = input("Please select your difficulty: Easy, Medium, Expert: ")
+
     if language.lower() == 'albanian':
-        fin = open('albwords.txt')
-        print('alb')
+        if difficulty.lower() == 'easy':
+            fin = open('albwords.txt')
+        elif difficulty.lower() == 'medium':
+            fin = open('albwordsMed.txt')
+        elif difficulty.lower() == 'expert':
+            fin = open('albwordsExp.txt')
+        else:
+            choose_lang()
+
     elif language.lower() == 'english':
-        fin = open('words.txt')
-        print('eng')
+        if difficulty.lower() == 'easy':
+            fin = open('words.txt')
+        elif difficulty.lower() == 'medium':
+            fin = open('engwordsMed.txt')
+        elif difficulty.lower() == 'expert':
+            fin = open('engwordsExp.txt')
+        else:
+            choose_lang()
+
     elif language.lower() == 'german':
-        fin = open('gerwords.txt')
-        print('german')
+        if difficulty.lower() == 'easy':
+            fin = open('gerwords.txt')
+        elif difficulty.lower() == 'medium':
+            fin = open('gerwordsMed.txt')
+        elif difficulty.lower() == 'expert':
+            fin = open('gerwordsExp.txt')
+        else:
+            choose_lang()
     else:
         return choose_lang()
     return fin
+
 
 print('Welcome to hangman game!')
 fin = choose_lang()
