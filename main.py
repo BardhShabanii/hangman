@@ -1,8 +1,24 @@
 import random, hanging
 
-print('Welcome to hangman game!')
 
-fin = open('words.txt')
+def choose_lang():
+    language = input("Please select your language: Albanian, English or German: ")
+    if language.lower() == 'albanian':
+        fin = open('albwords.txt')
+        print('alb')
+    elif language.lower() == 'english':
+        fin = open('words.txt')
+        print('eng')
+    elif language.lower() == 'german':
+        fin = open('gerwords.txt')
+        print('german')
+    else:
+        return choose_lang()
+    return fin
+
+print('Welcome to hangman game!')
+fin = choose_lang()
+# fin = open('words.txt')
 
 words = [line.strip().lower() for line in fin.readlines()]
 
