@@ -64,9 +64,16 @@ def play():
         print(*word_list)
         print(word)
 
+        points_total = 0
+        word_char_points = len(set(word))
+        print(word_char_points)
+
         while True:
             letter = input("Guess a letter: ")
             if letter not in word and letter not in been_guessed:
+                if word_char_points > 0:
+                    word_char_points -= 1
+                    print(word_char_points)
                 misses += 1
                 print(hanging.hangman[misses])
                 if misses == 5:
@@ -89,6 +96,8 @@ def play():
                 print("You won")
                 exit_or_play()
             print(*word_list)
+    points_total = word_char_points + points_total
+    return points_total
 
 
 # This definition lets you play again or exit the game after you lost.
@@ -99,9 +108,11 @@ def exit_or_play():
         ext_or_play = input("To play again type 'play', to exit the game type 'exit': ")
     else:
         if ext_or_play.lower() == 'exit':
+            print("Your total points are: " + points_total)
             exit()
         elif ext_or_play.lower() == 'play':
             play()
+
 
 
 play()
