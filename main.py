@@ -96,9 +96,9 @@ def play():
                 print("You won")
                 exit_or_play()
             print(*word_list)
+            return word_char_points
     points_total = word_char_points + points_total
     return points_total
-# test
 
 
 # This definition lets you play again or exit the game after you lost.
@@ -113,7 +113,6 @@ def exit_or_play():
             exit()
         elif ext_or_play.lower() == 'play':
             play()
-
 
 
 play()
