@@ -99,7 +99,7 @@ def play():
             return word_char_points
     points_total = word_char_points + points_total
     return points_total
-
+# test2
 
 # This definition lets you play again or exit the game after you lost.
 def exit_or_play():
