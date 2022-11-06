@@ -1,4 +1,5 @@
-import random, hanging
+import random
+import hanging
 
 
 def choose_lang():
@@ -41,14 +42,13 @@ def choose_lang():
 
 print('Welcome to hangman game!')
 fin = choose_lang()
-# fin = open('words.txt')
-
 words = [line.strip().lower() for line in fin.readlines()]
+points_total = 0
 
 
 def play():
+    global points_total
     while True:
-
         word = random.choice(words)
         length = len(word)
         misses = 0
@@ -61,19 +61,16 @@ def play():
         for i in range(length):
             word_list.append('_')
 
-        print(*word_list)
-        print(word)
+        print(*word_list)  # prints the "_" for each letter
+        print(word)  # prints the word (for testing)
 
-        points_total = 0
-        word_char_points = len(set(word))
-        print(word_char_points)
+        word_char_points = len(set(word))  # when starting, one point per unique char in word
 
         while True:
             letter = input("Guess a letter: ")
             if letter not in word and letter not in been_guessed:
                 if word_char_points > 0:
                     word_char_points -= 1
-                    print(word_char_points)
                 misses += 1
                 print(hanging.hangman[misses])
                 if misses == 5:
@@ -91,24 +88,25 @@ def play():
             for i in range(length):
                 if letter == word[i]:
                     word_list[i] = letter
+                    word_char_points += 1
 
             if '_' not in word_list:
                 print("You won")
+                points_total = word_char_points + points_total  # +1 points for every letter guessed in word
                 exit_or_play()
             print(*word_list)
-    # points_total = word_char_points + points_total
-    # return points_total
 
 
-# This definition lets you play again or exit the game after you lost.
+# This definition lets you play again or exit the game after you lost/finished.
 def exit_or_play():
+    global points_total
     ext_or_play = input("To play again type 'play', to exit the game type 'exit': ")
     while ext_or_play != 'exit' and \
             ext_or_play != 'play':
         ext_or_play = input("To play again type 'play', to exit the game type 'exit': ")
     else:
         if ext_or_play.lower() == 'exit':
-            # print("Your total points are: " + points_total)
+            print("Your total points are: " + str(points_total))
             exit()
         elif ext_or_play.lower() == 'play':
             play()
